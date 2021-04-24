@@ -111,10 +111,110 @@ function info (req, res) {
 }
 
 // 添加文章方法
-function add (req, res) { }
+/**
+ * post请求 参数如下
+ * title    必传  文章标题
+ * cate     必传  所属分类
+ * desc     必传  摘要
+ * content  必传  内容
+ */
+function add (req, res) {
+  let resObj = {}
+  const check = common.checkParams(req.body, ['title', 'cate', 'desc', 'content'])
+  if (!check) {
+    res.json(Constant.LACK)
+  } else {
+    ArticleModel
+      .create({
+        title: req.body.title,
+        desc: req.body.desc,
+        content: req.body.content,
+        cate: req.body.cate,
+        createdAt: new Date()
+      })
+      .then(function (result) {
+        resObj.msg = '添加文章成功'
+        res.json(resObj)
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.json(Constant.DEFAULT_ERROR)
+      })
+  }
+}
 
 // 修改文章方法
-function update (req, res) { }
+/**
+ * put请求  参数如下
+ * id     必传    文章id
+ * title   必传   文章标题
+ * cate   必传    所属分类
+ * desc   必传    摘要
+ * content  必传  内容
+ */
+function update (req, res) {
+  let resObj = {}
+  const check = common.checkParams(req.body, ['id', 'title', 'cate', 'desc', 'content'])
+  if (!check) {
+    res.json(Constant.LACK)
+  } else {
+    ArticleModel
+      .update({
+        title: req.body.title,
+        desc: req.body.desc,
+        content: req.body.content,
+        cate: req.body.cate,
+        updatedAt: new Date()
+      }, {
+        where: {
+          id: req.body.id
+        }
+      })
+      .then(function (result) {
+        if (result[0]) {
+          resObj.msg = '文章修改成功'
+          res.json(resObj)
+        } else {
+          resObj.msg = '文章修改失败'
+          res.json(resObj)
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.json(Constant.DEFAULT_ERROR)
+      })
+  }
+}
 
 // 删除文章方法
-function remove (req, res) { }
+/**
+ * delete请求  参数如下
+ * id    必传     文章id
+ */
+function remove (req, res) {
+  let resObj = {}
+  const check = common.checkParams(req.body, ['id'])
+  if (!check) {
+    res.json(Constant.LACK)
+  } else {
+    ArticleModel
+      .destroy({
+        where: {
+          id: req.body.id
+        }
+      })
+      .then(function (result) {
+        if (result) {
+          resObj.msg = '删除文章成功'
+          res.json(resObj)
+        } else {
+          resObj.msg = '文章信息不存在'
+          res.json(resObj)
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.json(Constant.DEFAULT_ERROR)
+      })
+  }
+}

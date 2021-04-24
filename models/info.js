@@ -7,6 +7,8 @@ const Info = db.define('Cate', {
   title: { type: Sequelize.STRING(20), allowNull: false },
   subtitle: { type: Sequelize.STRING(30), allowNull: false },
   about: { type: Sequelize.TEXT, allowNull: false },
+  createdAt: { type: Sequelize.DATE },
+  updatedAt: { type: Sequelize.DATE }
 }, {
   underscored: true,    //是否支持驼峰
   tableName: 'info',     //mysql数据库表名

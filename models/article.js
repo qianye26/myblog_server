@@ -9,7 +9,8 @@ const Article = db.define('Article', {
   desc: { type: Sequelize.STRING, allowNull: false },
   content: { type: Sequelize.TEXT, allowNull: false },
   cate: { type: Sequelize.INTEGER, allowNull: false },
-  createdAt: { type: Sequelize.DATE }
+  createdAt: { type: Sequelize.DATE },
+  updatedAt: { type: Sequelize.DATE }
 }, {
   underscored: true,    //是否支持驼峰
   tableName: 'article',     //mysql数据库表名

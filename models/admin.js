@@ -9,7 +9,8 @@ const Admin = db.define('Admin', {
   name: { type: Sequelize.STRING(20), allowNull: false },
   role: { type: Sequelize.INTEGER, allowNull: false },
   lastLoginAt: { type: Sequelize.DATE },
-  createAt: { type: Sequelize.DATE }
+  createAt: { type: Sequelize.DATE },
+  updatedAt: { type: Sequelize.DATE }
 }, {
   underscored: true,    //是否支持驼峰
   tableName: 'admin',   //mysql数据库表名
